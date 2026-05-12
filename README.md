@@ -7,6 +7,6 @@ Commands to run the project:
 2. uv run document_indexer.py --> to index the doc
 3. uv run agent.py dev --> for dev mode with console logs
 
-*
+Note:
 - .env keys require a Qdrant, Groq, Deepgram and Livekit account.
 - To add a document, create a "doc" folder in the root and place your PDF or .docx in the folder.
