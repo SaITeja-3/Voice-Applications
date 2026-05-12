@@ -1,0 +1,73 @@
+[project]
+name = "rag-voice-agent"
+version = "0.1.0"
+description = "RAG-powered LiveKit voice agent with Qdrant + FAISS semantic cache"
+requires-python = ">=3.11"
+
+dependencies = [
+    # LiveKit
+    "livekit-agents[openai,deepgram,silero]>=0.12.0",
+
+    # Vector store
+    "qdrant-client>=1.9.0",
+
+    # Embeddings
+    "langchain-community>=0.2.0",
+    "langchain-text-splitters>=0.2.0",
+    "sentence-transformers>=3.0.0",
+    "torch>=2.3.0",
+
+    # Caching
+    "faiss-cpu>=1.8.0",
+
+    # Document loading
+    "python-docx>=1.1.0",
+    "docx2txt>=0.8",
+    "pypdf>=4.2.0",
+
+    # Utilities
+    "numpy>=1.26.0",
+    "python-dotenv>=1.0.0",
+
+    # Observability
+    "opentelemetry-sdk>=1.24.0",
+    "opentelemetry-exporter-otlp>=1.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "agent.py",
+    "document_indexer.py",
+    "fast_talker.py",
+    "monitoring.py",
+    "semantic_cache.py",
+    "slow_thinker.py",
+]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "*.py",
+    "tests/*.py",
+    "requirements.txt",
+    ".env.example",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
